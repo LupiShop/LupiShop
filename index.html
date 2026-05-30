@@ -1046,6 +1046,8 @@
             display: inline-block;
             position: relative;
         }
+        /* el flex-container padre también debe permitir overflow para el dropdown */
+        .hero-mas-wrapper { overflow: visible; }
         .hero-mas-btn {
             margin-top: 0;
             letter-spacing: 0.3px;
@@ -1056,7 +1058,10 @@
         }
         .hero-mas-dropdown {
             display: none;
-            position: fixed;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            top: calc(100% + 8px);
             background: #fff;
             border-radius: 16px;
             box-shadow: 0 8px 25px rgba(0,0,0,0.13);
@@ -2072,6 +2077,18 @@
                 cerrarMas();
             }
         });
+
+        // --- CERRAR DROPDOWNS AL HACER SCROLL ---
+        function cerrarUbicacion() {
+            ubicacionDropdown.classList.remove('open');
+            ubicacionBtn.classList.remove('open');
+        }
+        function cerrarTodosDropdowns() {
+            cerrarMas();
+            cerrarUbicacion();
+        }
+        window.addEventListener('scroll', cerrarTodosDropdowns, { passive: true });
+        document.addEventListener('touchmove', cerrarTodosDropdowns, { passive: true });
     </script>
 
 </body>
