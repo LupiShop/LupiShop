@@ -1097,6 +1097,32 @@
             }
             .hero-mas-dropdown { min-width: 190px; }
         }
+
+        /* =============================================
+           ANIMACIONES MODALES Y DROPDOWN
+        ============================================= */
+        @keyframes modalPopIn {
+            0%   { opacity: 0; transform: translate(-50%, -50%) scale(0.85); }
+            70%  { opacity: 1; transform: translate(-50%, -50%) scale(1.03); }
+            100% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+        }
+
+        @keyframes dropdownSlideDown {
+            0%   { opacity: 0; transform: translateX(-50%) translateY(-10px); }
+            100% { opacity: 1; transform: translateX(-50%) translateY(0); }
+        }
+
+        #sobre-modal.modal-abierto {
+            animation: modalPopIn 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+
+        #faq-modal.modal-abierto {
+            animation: modalPopIn 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+
+        .hero-mas-dropdown.open {
+            animation: dropdownSlideDown 0.2s ease forwards;
+        }
     </style>
 </head>
 <body>
@@ -2007,12 +2033,16 @@
             var modal = document.getElementById('sobre-modal');
             overlay.style.display = 'block';
             modal.style.display = 'block';
+            modal.classList.remove('modal-abierto');
+            void modal.offsetWidth; // forzar reflow para reiniciar animación
+            modal.classList.add('modal-abierto');
             setTimeout(function() { overlay.style.opacity = '1'; }, 10);
         }
         function cerrarSobre() {
             var overlay = document.getElementById('sobre-overlay');
             var modal = document.getElementById('sobre-modal');
             overlay.style.opacity = '0';
+            modal.classList.remove('modal-abierto');
             setTimeout(function() {
                 overlay.style.display = 'none';
                 modal.style.display = 'none';
@@ -2030,12 +2060,16 @@
             var modal = document.getElementById('faq-modal');
             overlay.style.display = 'block';
             modal.style.display = 'block';
+            modal.classList.remove('modal-abierto');
+            void modal.offsetWidth; // forzar reflow para reiniciar animación
+            modal.classList.add('modal-abierto');
             setTimeout(function() { overlay.style.opacity = '1'; }, 10);
         }
         function cerrarFaq() {
             var overlay = document.getElementById('faq-overlay');
             var modal = document.getElementById('faq-modal');
             overlay.style.opacity = '0';
+            modal.classList.remove('modal-abierto');
             setTimeout(function() {
                 overlay.style.display = 'none';
                 modal.style.display = 'none';
